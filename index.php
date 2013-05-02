@@ -76,6 +76,24 @@ echo "</aside></h4><hr><aside><h4>";
 echo "</aside></h4><hr>\n";
 
 //ローカル環境とWeb環境で現在の様子のアプレットのアドレスを変える必要がある。
+
+$haddr="";
+if (isPrivateaddr($_SERVER['REMOTE_ADDR'])) {
+	$haddr=$_SERVER['SERVER_ADDR'];
+} else {
+	$haddr=$_SERVER['HTTP_HOST'];
+	$c=strpos($_SERVER['HTTP_HOST'],":".$_SERVER['SERVER_PORT']); //ポートを変えている場合に:8083がHTTP＿HOSTには含まれてしまう
+	
+	if ($c !==false) {
+		$haddr=substr($_SERVER['HTTP_HOST'],0,$c);
+	} else {
+		$haddr=$_SERVER['HTTP_HOST'];
+	}
+}
+
+
+/*
+
 $svm=$_SERVER['SERVER_ADDR'];
 $c=strrpos($svm,".");
 if($c !== false) {
@@ -94,6 +112,8 @@ if (strpos(getenv("REMOTE_ADDR"),$svm)===false)  {  //192.168.1.がリモート�
 } else {
 	$haddr=$_SERVER['SERVER_ADDR'];
 }
+*/
+
 
 echo '<aside><h5><a href="./temper.php">温度管理</a><br>'."\n";
 $agent = is_mobile();

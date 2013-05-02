@@ -167,6 +167,53 @@ function array_fullpath($path, $dirlist) {
   }
   return $fullpath;
 }
+//リモートアドレスがプライベートIPかどうか、を返す  
+function isPrivateaddr($addr) {
+	$ret = false;
+	//10.0.0.0   ~10.255.255.255  は  10.　で判別可能
+	//192.168.0.0~192.168.255.255 は 192.168. で判別可能
+        //172.16.0.0 ~172.31.255.255  は　？
+	$p = strpos($addr,".");
+	$s = substr($addr,0,$p);
+	if ($s==="10") {
+		$ret=true;
+	} else {
+		$p = strpos($addr,".");
+		$p = strpos($addr,".",$p+1);
+		$s = substr($addr,0,$p);
+		if($s==="192.168") {
+			$ret=true;
+		} else {
+			switch ($s) {
+				case '172.16':
+				case '172.17':
+				case '172.18':
+				case '172.19':
+				case '172.20':
+				case '172.21':
+				case '172.22':
+				case '172.23':
+				case '172.24':
+				case '172.25':
+				case '172.26':
+				case '172.27':
+				case '172.28':
+				case '172.29':
+				case '172.30':
+				case '172.31':
+					$ret=true;
+					break;
+				default:
+					$ret=false;
+			}
+
+		}
+
+	}
+
+	return $ret;
+
+}
 
 
 ?>
