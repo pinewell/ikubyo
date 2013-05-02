@@ -4,9 +4,9 @@ require ('lib/mdl.php');
 //serial を使用
 
 ///////////////// ここからメイン ////
-
+/テスト
 //ログアウト
-if ($_GET['logout']) { $_SESSION['login']='NG'; }
+if (isset($_GET['logout'])) { $_SESSION['login']='NG'; }
 
 
 if ((! isset($_SESSION['login'])) || (strcmp($_SESSION['login'],"OK" ) !=0)) {
